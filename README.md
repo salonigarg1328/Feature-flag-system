@@ -36,3 +36,13 @@ See docs/setup.md
 | DELETE | /api/v1/flags/{flag_id} | Delete a flag |
 
 Swagger UI: http://127.0.0.1:8000/docs
+
+### Environments (JWT required)
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | /api/v1/environments | Create an environment |
+| GET | /api/v1/environments | List all environments |
+| GET | /api/v1/environments/{environment_id} | Get one environment |
+| PUT | /api/v1/environments/{environment_id} | Update an environment |
+| DELETE | /api/v1/environments/{environment_id} | Delete (blocked while flags exist) |
+| GET | /api/v1/environments/{environment_id}/flags | List flags of an environment |

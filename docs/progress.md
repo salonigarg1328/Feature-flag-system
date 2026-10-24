@@ -56,3 +56,30 @@ Rules and error handling:
 - Invalid key, type or default value: 422
 
 Testing: all endpoints tested in Swagger UI, records verified in PostgreSQL (pgAdmin).
+
+## Week 4 - Environment Management APIs
+
+Status: Done
+
+What was built:
+- Environment schemas with name validation in `app/schemas/environment.py`
+- Service layer in `app/services/environment_service.py`
+- Six JWT-protected endpoints in `app/routers/environments.py`
+- Foreign key relationship: flags.environment_id references environments.id
+
+Endpoints:
+- POST   /api/v1/environments
+- GET    /api/v1/environments
+- GET    /api/v1/environments/{environment_id}
+- PUT    /api/v1/environments/{environment_id}
+- DELETE /api/v1/environments/{environment_id}
+- GET    /api/v1/environments/{environment_id}/flags
+
+Rules and error handling:
+- Missing token: 401/403
+- Unknown environment: 404
+- Duplicate environment name (case-insensitive): 409
+- Invalid name: 422
+- Delete blocked with 409 while the environment still has flags
+
+Testing: all endpoints tested in Swagger UI, relationship verified in PostgreSQL (pgAdmin).
