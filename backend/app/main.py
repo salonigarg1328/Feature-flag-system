@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.routers import auth
+from app.routers import auth, flags
 
 app = FastAPI(title="Feature Flag System")
 
@@ -14,7 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
-
+app.include_router(flags.router)
 
 @app.get("/")
 def home():

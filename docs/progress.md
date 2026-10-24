@@ -33,5 +33,26 @@
 - JWT stores only user id (sub) and expiry (exp); tokens expire in 60 minutes
 - Emails stored in lowercase
 
-## Next: Week 3
-Environments and Feature Flags CRUD APIs
+## Week 3 - Feature Flag Management APIs
+
+Status: Done
+
+What was built:
+- Flag schemas (create, update, response) with validation in `app/schemas/flag.py`
+- Service layer in `app/services/flag_service.py`
+- Five JWT-protected CRUD endpoints in `app/routers/flags.py`
+
+Endpoints:
+- POST   /api/v1/flags
+- GET    /api/v1/flags
+- GET    /api/v1/flags/{flag_id}
+- PUT    /api/v1/flags/{flag_id}
+- DELETE /api/v1/flags/{flag_id}
+
+Rules and error handling:
+- Missing token: 401/403
+- Unknown flag or environment: 404
+- Duplicate key in the same environment: 409
+- Invalid key, type or default value: 422
+
+Testing: all endpoints tested in Swagger UI, records verified in PostgreSQL (pgAdmin).
