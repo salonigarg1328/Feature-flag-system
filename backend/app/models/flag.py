@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, BigInteger, String, Text, Boolean, DateTime,
+    CheckConstraint, Column, BigInteger, Integer, String, Text, Boolean, DateTime,
     ForeignKey, UniqueConstraint, func,
 )
 from sqlalchemy.dialects.postgresql import JSONB
@@ -11,6 +11,10 @@ class Flag(Base):
     __tablename__ = "flags"
     __table_args__ = (
         UniqueConstraint("environment_id", "key", name="uq_flag_env_key"),
+        CheckConstraint(
+            "rollout_percentage >= 0 AND rollout_percentage <= 100",
+            name="ck_flags_rollout_percentage",
+        ),
     )
 
     id = Column(BigInteger, primary_key=True, index=True)
@@ -19,6 +23,7 @@ class Flag(Base):
     type = Column(String(50), nullable=False, default="boolean")
     default_value = Column(JSONB, nullable=False, default=False)
     enabled = Column(Boolean, nullable=False, default=False)
+    rollout_percentage = Column(Integer, nullable=False, default=0, server_default="0")
     description = Column(Text)
     owner_team = Column(String(100))
     created_by = Column(BigInteger, ForeignKey("users.id"))
